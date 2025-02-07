@@ -1,1 +1,9 @@
 google-generativeai
+os
+
+pymongo
+PyPDF2
+bs4
+googlesearch-python
+fpdf
+dotenv
