@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import os
 import io
 import datetime
@@ -274,4 +274,3 @@ if uploaded_file and job_description:
     if st.button("📄 Download Improved Resume"):
         improved_pdf = generate_improved_pdf(resume_text, ats_feedback)
         st.download_button("📥 Download PDF", improved_pdf, file_name=f"improved_{uploaded_file.name}", mime="application/pdf")
->>>>>>> 
