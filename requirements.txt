@@ -1,6 +1,4 @@
 google-generativeai
-os
-
 pymongo
 PyPDF2
 bs4
