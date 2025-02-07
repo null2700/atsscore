@@ -1,8 +1,9 @@
---upgrade pip
+streamlit
+requests
 google-generativeai
 pymongo
 PyPDF2
-bs4
-
+beautifulsoup4
+googlesearch-python
 fpdf
-dotenv
+python-dotenv
