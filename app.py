@@ -121,7 +121,7 @@ job_description = st.text_area("Paste the Job Description Here")
 if uploaded_file and job_description:
     resume_text = extract_pdf_text(uploaded_file)
     st.subheader("📋 Extracted Resume Text")
-    st.text_area("", resume_text, height=200,label_visibility="collapsed")
+    st.text_area("", resume_text, height=200)
     
     # Analyze Resume with AI
     if st.button("🔍 Analyze Resume"):
