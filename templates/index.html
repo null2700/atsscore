@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Enhancer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Resume Enhancer</h1>
+        
+        <!-- Upload Resume Form -->
+        <form id="resumeForm" enctype="multipart/form-data">
+            <label for="resume">Upload Resume (PDF):</label>
+            <input type="file" id="resume" name="resume" accept=".pdf" required>
+            
+            <label for="job_title">Enter Job Title:</label>
+            <input type="text" id="job_title" name="job_title" placeholder="e.g., Data Scientist" required>
+
+            <button type="submit">Search Job Requirements</button>
+        </form>
+
+        <div id="searchResults" class="hidden">
+            <h2>Search Results</h2>
+            <ul id="resultsList"></ul>
+        </div>
+
+        <!-- Improve Resume Form -->
+        <form id="improveForm" class="hidden">
+            <input type="hidden" id="resume_id" name="resume_id">
+            <label for="selected_url">Select a job requirement source:</label>
+            <select id="selected_url" name="selected_url" required></select>
+            <button type="submit">Improve Resume</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("resumeForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            
+            fetch("/search", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    document.getElementById("searchResults").classList.remove("hidden");
+                    const resultsList = document.getElementById("resultsList");
+                    resultsList.innerHTML = "";
+                    const selectDropdown = document.getElementById("selected_url");
+                    selectDropdown.innerHTML = "";
+
+                    data.websites.forEach(url => {
+                        const li = document.createElement("li");
+                        li.innerHTML = `<a href="${url}" target="_blank">${url}</a>`;
+                        resultsList.appendChild(li);
+
+                        const option = document.createElement("option");
+                        option.value = url;
+                        option.textContent = url;
+                        selectDropdown.appendChild(option);
+                    });
+
+                    document.getElementById("improveForm").classList.remove("hidden");
+                    document.getElementById("resume_id").value = data.resume_id;
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+
+        document.getElementById("improveForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            fetch("/improve", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) return response.blob();
+                throw new Error("Error generating PDF");
+            })
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "improved_resume.pdf";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
+</body>
+</html>

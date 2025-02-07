@@ -79,26 +79,26 @@ def get_gemini_response(resume_text, job_description):
             {job_description}  
 
             Expected JSON Response Format:  
-            {  
+            {{  
             "ATS_Match_Score": "85%",  
             "Missing_Keywords": ["Kubernetes", "GCP", "BigQuery", "Docker"],  
             "Formatting_Issues": ["Work Experience section appears empty", "Date format should be MM/YYYY"],  
             "Job_Title_Match": "The job title 'Python Engineer' was not found in the resume. Consider adding it to the summary.",  
-            "Contact_Information": {  
+            "Contact_Information": {{  
                 "Email": "✔ Provided",  
                 "Phone": "✔ Provided",  
                 "Address": "❌ Not Found"  
-            },  
+            }},  
             "Education_Match": "Education information is missing. Add relevant degrees or certifications.",  
-            "Hard_Skills_Match": {  
+            "Hard_Skills_Match": {{  
                 "Resume_Skills": ["Python", "Relational Database", "Integration Testing"],  
                 "JD_Skills": ["Python", "Kubernetes", "BigQuery", "Object-Oriented Programming"],  
                 "Missing_Skills": ["Kubernetes", "BigQuery"]  
-            },  
+            }},  
             "File_Format": "Resume is in an incompatible format. Convert it to an ATS-friendly PDF.",  
             "Summary": "Your resume has strong Python skills but lacks key cloud-related technologies like Kubernetes and BigQuery. Update your job title to match the description and ensure your experience section is well-structured."  
-            }  
-  
+            }}  
+
             """
 
     

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results for "{{ field }}"</h1>
+    <ul>
+        {% for result in results %}
+            <li><a href="{{ result.link }}" target="_blank">{{ result.title }}</a></li>
+        {% endfor %}
+    </ul>
+    
+    <form action="/visit" method="post">
+        <label for="website_number">Enter the number of the website to visit:</label>
+        <input type="number" id="website_number" name="website_number" required>
+        <input type="hidden" name="query" value="{{ field }}">
+        <button type="submit">Go</button>
+    </form>
+    
+    <a href="/">Back to Home</a>
+</body>
+</html>
