@@ -2,6 +2,6 @@ google-generativeai
 pymongo
 PyPDF2
 bs4
-googlesearch-python
+
 fpdf
 dotenv
